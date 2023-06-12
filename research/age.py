@@ -1,6 +1,6 @@
-from datetime import datetime
 import statistics
 import typing as tp
+from datetime import datetime
 
 from vkapi.friends import get_friends
 

@@ -7,3 +7,4 @@ networkx==2.5
 pandas==2.0.2
 matplotlib==3.3.3
 python-louvain==0.14
+isort==5.12.0
