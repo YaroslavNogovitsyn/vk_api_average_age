@@ -1,5 +1,6 @@
 import dataclasses
 import math
+import time
 import typing as tp
 
 from vkapi import session, config
@@ -88,7 +89,11 @@ def get_mutual(
 
     responses = []
 
-    for i in progress(range(math.ceil(len(target_uids) / 100))):
+    itr = range(math.ceil(len(target_uids) / 100))
+    if progress:
+        itr = progress(itr)
+
+    for i in itr:
         response = session.get(
             "friends.getMutual",
             params={
@@ -114,6 +119,8 @@ def get_mutual(
                     common_count=elem["common_count"],
                 )
             )
+
+        time.sleep(0.5)
     return responses
 
 
