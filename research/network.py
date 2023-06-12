@@ -88,4 +88,5 @@ if __name__ == '__main__':
     plot_communities(net)
 
     communities = get_communities(net)
+    friends_response = get_friends(user_id=817934)
     print(describe_communities(communities, friends_response.items, fields=["first_name", "last_name"]))
