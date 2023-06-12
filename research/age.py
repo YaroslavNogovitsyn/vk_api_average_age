@@ -1,3 +1,5 @@
+from datetime import datetime
+import statistics
 import typing as tp
 
 from vkapi.friends import get_friends
@@ -12,4 +14,14 @@ def age_predict(user_id: int) -> tp.Optional[float]:
     :param user_id: Идентификатор пользователя.
     :return: Медианный возраст пользователя.
     """
-    pass
+    ages = []
+
+    for friend in get_friends(user_id, fields=["bdate"]).items:
+        try:
+            ages.append(datetime.strptime(friend["bdate"], "%d.%m.%Y").year)
+        except (KeyError, ValueError):
+            pass
+
+    if ages:
+        return datetime.today().year - statistics.median(ages)
+    return None
