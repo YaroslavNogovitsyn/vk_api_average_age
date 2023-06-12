@@ -19,13 +19,12 @@ def ego_network(
     :param friends: Идентификаторы друзей, между которыми устанавливаются связи.
     """
     list_of_id_friends = []
-    active_friends = None
 
     if not friends:
-        friends_response = get_friends(user_id=150968391, fields=["nickname"])
-        active_friends = [user["id"] for user in friends_response.items if not user.get("deactivated")]
+        friends_resp = get_friends(user_id=user_id, fields=["nickname"])
+        friends = [user["id"] for user in friends_resp.items if not user.get("deactivated")]
 
-    mutual_friends = get_mutual(user_id, target_uids=active_friends)
+    mutual_friends = get_mutual(user_id, target_uids=friends)
     for person in mutual_friends:
         list_of_id_friends.extend([(person['id'], n) for n in person['common_friends']])
 
